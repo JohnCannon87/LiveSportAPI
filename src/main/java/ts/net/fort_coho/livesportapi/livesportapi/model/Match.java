@@ -21,7 +21,8 @@ public class Match {
   private Team awayTeam;
   @JsonFormat(pattern = "HH:mm")
   private LocalDateTime kickoff;
-  private List<Channel> channels;
+  private List<Channel> channelsList;
+  private String channels;
 
   public String toString() {
     StringBuilder builder = new StringBuilder();

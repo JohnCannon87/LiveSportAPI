@@ -21,7 +21,7 @@ public class ChannelExclusionMatchFilterFactory {
 
     return match -> {
       // Check if ALL channels are excluded (i.e. all in excludedChannels set)
-      return match.getChannels()
+      return match.getChannelsList()
           .stream()
           .map(channel -> channel.getName().toLowerCase())  // case-insensitive compare
           .allMatch(excludedChannels::contains) == false; // keep match only if NOT all are excluded

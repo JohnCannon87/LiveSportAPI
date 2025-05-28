@@ -2,6 +2,7 @@ package ts.net.fort_coho.livesportapi.livesportapi.services;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,21 @@ public class MatchService {
         .homeTeam(teams.getValue0())
         .awayTeam(teams.getValue1())
         .kickoff(kickoff)
-        .channels(channels)
+        .channelsList(channels)
+        .channels(convertChannelsToCSV(channels))
         .build();
 
     competition.addMatch(match);
     matchRepo.save(match);
+  }
+
+  private String convertChannelsToCSV(List<Channel> channels) {
+    if (channels == null || channels.isEmpty()) {
+      return "";
+    }
+    return channels.stream()
+        .map(Channel::getName)
+        .collect(Collectors.joining(", "));
   }
 
 }
