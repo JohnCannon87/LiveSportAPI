@@ -23,6 +23,7 @@ public class Match {
   private LocalDateTime kickoff;
   private List<Channel> channelsList;
   private String channels;
+  private String sourceUrl;
 
   public String toString() {
     StringBuilder builder = new StringBuilder();

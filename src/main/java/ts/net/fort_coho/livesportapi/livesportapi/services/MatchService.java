@@ -25,7 +25,7 @@ public class MatchService {
   }
 
   public void createAndSaveMatch(Competition competition, LocalDateTime kickoff, Pair<Team, Team> teams,
-      List<Channel> channels) {
+      List<Channel> channels, String sourceUrl) {
     Match match = Match.builder()
         .competition(competition.getName())
         .homeTeam(teams.getValue0())
@@ -33,6 +33,7 @@ public class MatchService {
         .kickoff(kickoff)
         .channelsList(channels)
         .channels(convertChannelsToCSV(channels))
+        .sourceUrl(sourceUrl)
         .build();
 
     competition.addMatch(match);

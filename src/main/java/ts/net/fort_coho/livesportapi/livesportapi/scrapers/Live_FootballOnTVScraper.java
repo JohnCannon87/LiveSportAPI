@@ -76,14 +76,14 @@ public class Live_FootballOnTVScraper extends AbstractScraper {
         fixturesData.add(builder.build());
       }
 
-      convertFixturesDataToModel(fixturesData);
+      convertFixturesDataToModel(fixturesData, liveFootballOnTvUrl);
 
     } catch (Exception e) {
       log.error("Error when parsing Live-FootballOnTv", e);
     }
   }
 
-  private void convertFixturesDataToModel(List<FixtureDateAndData> fixturesData) {
+  private void convertFixturesDataToModel(List<FixtureDateAndData> fixturesData, String sourceUrl) {
     Sport sport = sportService.getSport(getSport());
 
     for (FixtureDateAndData fixtureDateAndData : fixturesData) {
@@ -101,7 +101,7 @@ public class Live_FootballOnTVScraper extends AbstractScraper {
         Pair<Team, Team> teams = teamService.convertTeamsData(teamsData, sport);
         List<Channel> channels = channelService.convertChannelData(channelData);
         if (teams != null) {
-          matchService.createAndSaveMatch(competition, kickoff, teams, channels);
+          matchService.createAndSaveMatch(competition, kickoff, teams, channels, sourceUrl);
         }
       }
     }
