@@ -1,9 +1,8 @@
 package ts.net.fort_coho.livesportapi.livesportapi.controller;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import ts.net.fort_coho.livesportapi.livesportapi.controller.matchfilters.Channe
 import ts.net.fort_coho.livesportapi.livesportapi.controller.matchfilters.CompetitionExclusionMatchFilterFactory;
 import ts.net.fort_coho.livesportapi.livesportapi.controller.matchfilters.DateRangeMatchFilterFactory;
 import ts.net.fort_coho.livesportapi.livesportapi.controller.matchfilters.MatchFilter;
+import ts.net.fort_coho.livesportapi.livesportapi.model.GetMatchesResponse;
 import ts.net.fort_coho.livesportapi.livesportapi.model.Match;
 import ts.net.fort_coho.livesportapi.livesportapi.services.MatchService;
 
@@ -27,7 +27,7 @@ public class SportController {
   private MatchService matchService;
 
   @GetMapping("/matches")
-  public Map<LocalDate, List<Match>> getMatches(
+  public GetMatchesResponse getMatches(
       @RequestParam(name = "excludeComps", required = false) String competitionsToExclude,
       @RequestParam(name = "daysInFuture", required = false, defaultValue = "0") int daysInFuture,
       @RequestParam(name = "excludeChannels", required = false) String channelsToExclude) {
@@ -45,8 +45,11 @@ public class SportController {
         .sorted(Comparator.comparing(Match::getKickoff))
         .collect(Collectors.toList());
 
-    return filteredMatches.stream()
-        .collect(Collectors.groupingBy(match -> match.getKickoff().toLocalDate()));
+    return GetMatchesResponse.builder()
+        .responseTime(LocalDateTime.now())
+        .matches(filteredMatches.stream()
+            .collect(Collectors.groupingBy(match -> match.getKickoff().toLocalDate())))
+        .build();
   }
 
 }
