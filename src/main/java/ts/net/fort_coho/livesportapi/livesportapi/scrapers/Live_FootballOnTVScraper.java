@@ -10,10 +10,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import ts.net.fort_coho.livesportapi.livesportapi.model.Channel;
 import ts.net.fort_coho.livesportapi.livesportapi.model.Competition;
@@ -28,7 +26,7 @@ import ts.net.fort_coho.livesportapi.livesportapi.model.Team;
  */
 @Slf4j
 @Service
-public class Live_FootballOnTVScraper extends AbstractScraper {
+public class Live_FootballOnTVScraper extends AbstractScraper implements Scraper {
 
   @Value("${scrapers.livefootballontv.url}")
   private String liveFootballOnTvUrl;
@@ -36,17 +34,7 @@ public class Live_FootballOnTVScraper extends AbstractScraper {
   @Value("${scrapers.livefootballontv.shouldSkipDelay:true}")
   private boolean shouldSkipDelay;
 
-  @PostConstruct
-  public void onStartup() {
-    scrapeSite();
-  }
-
-  @Scheduled(cron = "14 4 * * *")
-  public void scheduled() {
-    scrapeSite();
-  }
-
-  public void scrapeSite() {
+  public void execute() {
     log.info(String.format("Scraping %s", liveFootballOnTvUrl));
     try {
       Document mainPage = Jsoup.connect(liveFootballOnTvUrl).get();

@@ -1,5 +1,6 @@
 package ts.net.fort_coho.livesportapi.livesportapi.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.jsoup.select.Elements;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ts.net.fort_coho.livesportapi.livesportapi.model.Competition;
+import ts.net.fort_coho.livesportapi.livesportapi.model.Match;
 import ts.net.fort_coho.livesportapi.livesportapi.model.Sport;
 import ts.net.fort_coho.livesportapi.livesportapi.repositories.CompetitionRepository;
 
@@ -29,6 +31,12 @@ public class CompetitionService {
     }
 
     return competitionOptional.get();
+  }
+
+  public void removeAllMatchesFromAllCompetitions(List<Match> matches) {
+    for (Competition competition : competitionRepo.getAll()) {
+      competition.getMatches().removeAll(matches);
+    }
   }
 
 }

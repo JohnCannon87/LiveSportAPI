@@ -24,6 +24,10 @@ public class MatchService {
     return matchRepo.getAll();
   }
 
+  public void removeMatches(List<Match> matches) {
+    matchRepo.removeMatches(matches);
+  }
+
   public void createAndSaveMatch(Competition competition, LocalDateTime kickoff, Pair<Team, Team> teams,
       List<Channel> channels, String sourceUrl) {
     Match match = Match.builder()

@@ -22,4 +22,7 @@ public class MatchRepository {
     }
   }
 
+  public void removeMatches(List<Match> matches) {
+    matches.removeAll(matches);
+  }
 }

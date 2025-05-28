@@ -29,8 +29,6 @@ public abstract class AbstractScraper {
   @Autowired
   protected TimeService timeService;
 
-  abstract void scrapeSite();
-
   abstract String getSport();
 
 }

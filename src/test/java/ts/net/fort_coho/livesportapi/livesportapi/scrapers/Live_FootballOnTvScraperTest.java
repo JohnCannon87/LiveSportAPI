@@ -12,7 +12,7 @@ public class Live_FootballOnTvScraperTest {
 
   @Test
   void testImplementation() {
-    underTest.scrapeSite();
+    underTest.execute();
 
   }
 
