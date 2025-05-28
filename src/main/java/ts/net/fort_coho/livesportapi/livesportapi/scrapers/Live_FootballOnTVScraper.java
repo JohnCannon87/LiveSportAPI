@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import ts.net.fort_coho.livesportapi.livesportapi.TestData;
 import ts.net.fort_coho.livesportapi.livesportapi.model.Channel;
 import ts.net.fort_coho.livesportapi.livesportapi.model.Competition;
 import ts.net.fort_coho.livesportapi.livesportapi.model.FixtureDateAndData;
@@ -50,8 +49,7 @@ public class Live_FootballOnTVScraper extends AbstractScraper {
   public void scrapeSite() {
     log.info(String.format("Scraping %s", liveFootballOnTvUrl));
     try {
-      //Document mainPage = Jsoup.connect(liveFootballOnTvUrl).get();
-      Document mainPage = Jsoup.parse(TestData.testData);
+      Document mainPage = Jsoup.connect(liveFootballOnTvUrl).get();
 
       List<Element> fixtureGroups = mainPage.select("div.fixture-group");
 
