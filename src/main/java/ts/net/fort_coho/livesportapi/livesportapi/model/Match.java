@@ -1,5 +1,7 @@
 package ts.net.fort_coho.livesportapi.livesportapi.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,6 +19,7 @@ public class Match {
   private String competition;
   private Team homeTeam;
   private Team awayTeam;
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
   private LocalDateTime kickoff;
   private List<Channel> channels;
 
