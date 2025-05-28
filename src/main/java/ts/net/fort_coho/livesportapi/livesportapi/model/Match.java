@@ -19,7 +19,7 @@ public class Match {
   private String competition;
   private Team homeTeam;
   private Team awayTeam;
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+  @JsonFormat(pattern = "HH:mm")
   private LocalDateTime kickoff;
   private List<Channel> channels;
 
