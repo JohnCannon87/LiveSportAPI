@@ -22,6 +22,7 @@ public class SportService {
   public Sport getSport(String sportName) {
     Optional<Sport> optionalSport = sportRepo.get(sportName);
 
-    return optionalSport.orElse(sportRepo.save(Sport.builder().name(sportName).build()));
+    return optionalSport.orElseGet(() -> sportRepo.save(Sport.builder().name(sportName).build()));
+
   }
 }

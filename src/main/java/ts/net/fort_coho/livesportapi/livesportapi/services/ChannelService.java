@@ -30,10 +30,10 @@ public class ChannelService {
     return result;
   }
 
-  private Channel getChannel(String ChannelName) {
-    Optional<Channel> optionalTeam = channelRepo.get(ChannelName);
+  private Channel getChannel(String channelName) {
+    Optional<Channel> optionalTeam = channelRepo.get(channelName);
 
-    return optionalTeam.orElse(channelRepo.save(Channel.builder().name(ChannelName).build()));
+    return optionalTeam.orElseGet(() -> channelRepo.save(Channel.builder().name(channelName).build()));
   }
 
 }

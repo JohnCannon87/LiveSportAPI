@@ -49,7 +49,7 @@ public class TeamService {
   private Team getTeam(String teamName) {
     Optional<Team> optionalTeam = teamRepo.get(teamName);
 
-    return optionalTeam.orElse(teamRepo.save(Team.builder().name(teamName).build()));
+    return optionalTeam.orElseGet(() -> teamRepo.save(Team.builder().name(teamName).build()));
   }
 
 }
