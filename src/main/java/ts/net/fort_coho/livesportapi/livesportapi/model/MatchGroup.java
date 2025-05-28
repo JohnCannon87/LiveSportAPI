@@ -2,7 +2,7 @@ package ts.net.fort_coho.livesportapi.livesportapi.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -14,9 +14,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetMatchesResponse {
+public class MatchGroup {
 
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-  private LocalDateTime responseTime;
-  private List<MatchGroup> matchGroups;
+  @JsonFormat(pattern = "yyyy-MM-dd")
+  private LocalDate matchDay;
+  private List<Match> matches;
+
 }

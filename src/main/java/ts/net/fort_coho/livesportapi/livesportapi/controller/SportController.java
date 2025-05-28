@@ -17,6 +17,7 @@ import ts.net.fort_coho.livesportapi.livesportapi.controller.matchfilters.DateRa
 import ts.net.fort_coho.livesportapi.livesportapi.controller.matchfilters.MatchFilter;
 import ts.net.fort_coho.livesportapi.livesportapi.model.GetMatchesResponse;
 import ts.net.fort_coho.livesportapi.livesportapi.model.Match;
+import ts.net.fort_coho.livesportapi.livesportapi.model.MatchGroup;
 import ts.net.fort_coho.livesportapi.livesportapi.services.MatchService;
 
 @RestController
@@ -45,10 +46,21 @@ public class SportController {
         .sorted(Comparator.comparing(Match::getKickoff))
         .collect(Collectors.toList());
 
+    // Group by match day and create MatchGroup instances, sorted by date
+    List<MatchGroup> matchGroups = filteredMatches.stream()
+        .collect(Collectors.groupingBy(match -> match.getKickoff().toLocalDate()))
+        .entrySet()
+        .stream()
+        .sorted(Comparator.comparing(e -> e.getKey()))
+        .map(entry -> MatchGroup.builder()
+            .matchDay(entry.getKey())
+            .matches(entry.getValue())
+            .build())
+        .collect(Collectors.toList());
+
     return GetMatchesResponse.builder()
         .responseTime(LocalDateTime.now())
-        .matches(filteredMatches.stream()
-            .collect(Collectors.groupingBy(match -> match.getKickoff().toLocalDate())))
+        .matchGroups(matchGroups)
         .build();
   }
 
