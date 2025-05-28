@@ -31,9 +31,6 @@ public class Live_FootballOnTVScraper extends AbstractScraper implements Scraper
   @Value("${scrapers.livefootballontv.url}")
   private String liveFootballOnTvUrl;
 
-  @Value("${scrapers.livefootballontv.shouldSkipDelay:true}")
-  private boolean shouldSkipDelay;
-
   public void execute() {
     log.info(String.format("Scraping %s", liveFootballOnTvUrl));
     try {

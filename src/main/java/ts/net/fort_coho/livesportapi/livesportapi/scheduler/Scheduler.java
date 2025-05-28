@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
 import ts.net.fort_coho.livesportapi.livesportapi.scrapers.Scraper;
+import ts.net.fort_coho.livesportapi.livesportapi.services.CleanupService;
 
 @Service
 public class Scheduler {
@@ -15,14 +16,18 @@ public class Scheduler {
   @Autowired
   private List<Scraper> scrapers;
 
+  @Autowired
+  private CleanupService cleanupService;
+
   @PostConstruct
   public void onStartup() {
     scrapeAll();
   }
 
-  @Scheduled(cron = "14 4 * * *")
+  @Scheduled(cron = "14 6 * * *")
   public void scheduled() {
     scrapeAll();
+    cleanupService.cleanupBeforeToday();
   }
 
   private void scrapeAll() {
